@@ -11,6 +11,8 @@
     "build": "next build",
     "start": "next start --hostname 127.0.0.1",
     "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate deploy",
+    "db:dev": "prisma migrate dev",
     "postinstall": "prisma generate",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
