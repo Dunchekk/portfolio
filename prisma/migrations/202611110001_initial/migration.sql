@@ -157,3 +157,10 @@ ALTER TABLE "_CategoryToProject" ADD CONSTRAINT "_CategoryToProject_A_fkey" FORE
 ALTER TABLE "_CategoryToProject" ADD CONSTRAINT "_CategoryToProject_B_fkey" FOREIGN KEY ("B") REFERENCES "Project"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 
+-- Prisma cannot express CHECK constraints; preserve these when migrating.
+ALTER TABLE "ProjectBlock" ADD CONSTRAINT "block_column_range" CHECK ("column" BETWEEN 0 AND 2);
+ALTER TABLE "ProjectBlock" ADD CONSTRAINT "block_position_nonnegative" CHECK ("position" >= 0);
+ALTER TABLE "ProjectBlock" ADD CONSTRAINT "block_payload" CHECK (
+  ("kind" = 'TEXT' AND "text" IS NOT NULL AND length(trim("text")) > 0 AND "mediaId" IS NULL) OR
+  ("kind" = 'IMAGE' AND "mediaId" IS NOT NULL AND "text" IS NULL)
+);
