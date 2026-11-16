@@ -26,4 +26,22 @@ export const blockSchema = z.discriminatedUnion('kind', [
     caption: z.string().max(1000),
   }),
 ]);
+export const projectSchema = z
+  .object({
+    id: z.string().optional(),
+    version: z.number().int().nonnegative(),
+    title: z.string().trim().min(1).max(200),
+    slug: slugSchema,
+    summary: z.string().trim().max(500),
+    date: dateSchema,
+    status: z.enum(statuses),
+    categoryIds: z.array(z.string()).max(30),
+    coverId: z.string().nullable(),
+    blocks: z.array(blockSchema).max(200),
+  })
+  .refine(
+    (p) => p.status !== 'PUBLISHED' || p.blocks.length > 0,
+    'Для публикации добавьте хотя бы один блок.',
+  );
+export type ProjectInput = z.infer<typeof projectSchema>;
 export type BlockInput = z.infer<typeof blockSchema>;
