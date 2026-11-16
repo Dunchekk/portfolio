@@ -1,0 +1,57 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  padding: 0 1em;
+  background: white;
+  color: black;
+  font:
+    13.25px/1.4 Helvetica,
+    Arial,
+    Verdana,
+    sans-serif;
+}
+h1,
+h2,
+h3,
+p,
+figure {
+  margin: 0;
+  font-size: inherit;
+}
+a {
+  color: inherit;
+}
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+button {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: wait;
+  opacity: 0.6;
+}
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #333;
+  outline-offset: 3px;
+}
+.skip {
+  position: absolute;
+  left: -10000px;
+}
+.skip:focus {
+  left: 1em;
+  top: 0;
+  background: white;
+  z-index: 10;
+}
