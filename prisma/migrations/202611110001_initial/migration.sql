@@ -164,3 +164,5 @@ ALTER TABLE "ProjectBlock" ADD CONSTRAINT "block_payload" CHECK (
   ("kind" = 'TEXT' AND "text" IS NOT NULL AND length(trim("text")) > 0 AND "mediaId" IS NULL) OR
   ("kind" = 'IMAGE' AND "mediaId" IS NOT NULL AND "text" IS NULL)
 );
+ALTER TABLE "Media" ADD CONSTRAINT "media_dimensions" CHECK ("width" > 0 AND "height" > 0 AND "bytes" > 0);
+ALTER TABLE "Profile" ADD CONSTRAINT "profile_singleton" CHECK ("id" = 'main');
