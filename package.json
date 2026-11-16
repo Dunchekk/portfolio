@@ -11,6 +11,7 @@
     "build": "next build",
     "start": "next start --hostname 127.0.0.1",
     "db:generate": "prisma generate",
+    "postinstall": "prisma generate",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },

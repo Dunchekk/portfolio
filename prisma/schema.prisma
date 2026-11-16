@@ -95,3 +95,9 @@ model AdminSession {
   expiresAt DateTime
   @@index([expiresAt])
 }
+/// Shared fixed-window throttle survives process restarts and multiple instances.
+model LoginWindow {
+  id        String @id
+  attempts  Int @default(0)
+  expiresAt DateTime
+}
