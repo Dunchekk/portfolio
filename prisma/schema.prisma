@@ -26,9 +26,16 @@ model Project {
   version     Int @default(1)
   coverId     String?
   cover       Media? @relation("ProjectCover", fields: [coverId], references: [id], onDelete: Restrict)
+  categories  Category[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   @@index([status, date, id])
+}
+/// Reusable classification for archive filters.
+model Category {
+  id       String @id @default(cuid())
+  name     String @unique @db.VarChar(80)
+  projects Project[]
 }
 /// Immutable normalized image. Files live outside the public directory.
 model Media {
