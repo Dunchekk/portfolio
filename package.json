@@ -9,7 +9,9 @@
   "scripts": {
     "dev": "next dev --hostname 127.0.0.1",
     "build": "next build",
-    "start": "next start --hostname 127.0.0.1"
+    "start": "next start --hostname 127.0.0.1",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@prisma/adapter-pg": "7.10.1",
