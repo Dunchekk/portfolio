@@ -66,3 +66,12 @@ model Media {
   blocks    ProjectBlock[]
   covers    Project[] @relation("ProjectCover")
 }
+/// Single editable profile; no user table for an env-configured single admin.
+model Profile {
+  id        String @id @default("main")
+  name      String @default("Portfolio") @db.VarChar(120)
+  about     String @default("") @db.Text
+  contact   String @default("") @db.Text
+  version   Int @default(1)
+  updatedAt DateTime @updatedAt
+}
