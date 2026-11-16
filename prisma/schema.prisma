@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+datasource db {
+  provider = "postgresql"
+}
+/// LISTED appears in the archive without a detail link; DRAFT is entirely private.
+enum PublicationStatus {
+  DRAFT
+  LISTED
+  PUBLISHED
+}
+enum BlockKind {
+  TEXT
+  IMAGE
+}
+/// Editorial aggregate. Version prevents lost updates from simultaneous tabs.
+model Project {
+  id          String @id @default(cuid())
+  slug        String @unique @db.VarChar(120)
+  title       String @db.VarChar(200)
+  summary     String @default("") @db.VarChar(500)
+  date        DateTime @db.Date
+  status      PublicationStatus @default(DRAFT)
+  version     Int @default(1)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  @@index([status, date, id])
+}
