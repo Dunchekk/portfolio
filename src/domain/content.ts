@@ -45,3 +45,14 @@ export const projectSchema = z
   );
 export type ProjectInput = z.infer<typeof projectSchema>;
 export type BlockInput = z.infer<typeof blockSchema>;
+export function normalizeText(text: string) {
+  return text
+    .replace(/\r\n?/g, '\n')
+    .trim()
+    .replace(/\n[\t ]*\n(?:[\t ]*\n)+/g, '\n\n');
+}
+export function paragraphs(text: string) {
+  return normalizeText(text)
+    .split(/\n[\t ]*\n/)
+    .filter(Boolean);
+}
