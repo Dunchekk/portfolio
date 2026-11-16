@@ -65,6 +65,7 @@ model Media {
   createdAt DateTime @default(now())
   blocks    ProjectBlock[]
   covers    Project[] @relation("ProjectCover")
+  news      News[]
 }
 /// Single editable profile; no user table for an env-configured single admin.
 model Profile {
@@ -74,4 +75,17 @@ model Profile {
   contact   String @default("") @db.Text
   version   Int @default(1)
   updatedAt DateTime @updatedAt
+}
+model News {
+  id        String @id @default(cuid())
+  title     String @db.VarChar(200)
+  text      String @db.Text
+  date      DateTime @db.Date
+  published Boolean @default(false)
+  mediaId   String?
+  media     Media? @relation(fields: [mediaId], references: [id], onDelete: Restrict)
+  version   Int @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  @@index([published, date])
 }
