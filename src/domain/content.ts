@@ -15,3 +15,15 @@ export const dateSchema = z
     const date = new Date(`${value}T00:00:00Z`);
     return Number.isFinite(date.getTime()) && date.toISOString().slice(0, 10) === value;
   }, 'Укажите существующую дату.');
+const commonBlock = { column: z.number().int().min(0).max(2), id: z.string().optional() };
+export const blockSchema = z.discriminatedUnion('kind', [
+  z.object({ ...commonBlock, kind: z.literal('TEXT'), text: textSchema.min(1) }),
+  z.object({
+    ...commonBlock,
+    kind: z.literal('IMAGE'),
+    mediaId: z.string().min(1),
+    alt: z.string().trim().min(1, 'Добавьте описание фотографии.').max(500),
+    caption: z.string().max(1000),
+  }),
+]);
+export type BlockInput = z.infer<typeof blockSchema>;
