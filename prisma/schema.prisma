@@ -89,3 +89,9 @@ model News {
   updatedAt DateTime @updatedAt
   @@index([published, date])
 }
+/// Only a SHA-256 digest of the random cookie token is stored.
+model AdminSession {
+  tokenHash String @id
+  expiresAt DateTime
+  @@index([expiresAt])
+}
