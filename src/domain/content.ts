@@ -56,3 +56,11 @@ export function paragraphs(text: string) {
     .split(/\n[\t ]*\n/)
     .filter(Boolean);
 }
+export function orderedBlocks(blocks: BlockInput[]) {
+  const positions = [0, 0, 0];
+  return blocks.map((block) => ({
+    ...block,
+    position: positions[block.column]++,
+    ...(block.kind === 'TEXT' ? { text: normalizeText(block.text) } : {}),
+  }));
+}
