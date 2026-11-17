@@ -45,3 +45,9 @@ export async function signIn(login: string, password: string) {
   });
   return null;
 }
+export async function signOut() {
+  const jar = await cookies();
+  const token = jar.get(COOKIE)?.value;
+  if (token) await db().adminSession.deleteMany({ where: { tokenHash: digest(token) } });
+  jar.delete(COOKIE);
+}
