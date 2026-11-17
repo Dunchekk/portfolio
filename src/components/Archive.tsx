@@ -1,3 +1,4 @@
+import { ArchiveFilters } from './ArchiveFilters';
 import Link from 'next/link';
 import Image from 'next/image';
 import { listProjects, getCategories } from '@/server/projects';
@@ -22,6 +23,13 @@ export async function Archive({
   const url = (nextSort: string) => `?${new URLSearchParams({ q, category, sort: nextSort })}`;
   return (
     <>
+      <ArchiveFilters
+        q={q}
+        category={category}
+        sort={sort}
+        preview={preview}
+        categories={categories}
+      />
       {visibleProjects.length === 0 ? (
         <p>No projects found.</p>
       ) : (
