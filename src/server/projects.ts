@@ -13,3 +13,17 @@ export const getProject = (id: string) => db().project.findUnique({ where: { id 
 export const getPublishedProject = (slug: string) =>
   db().project.findFirst({ where: { slug, status: 'PUBLISHED' }, include });
 export const getCategories = () => db().category.findMany({ orderBy: { name: 'asc' } });
+export async function listProjects({
+  admin = false,
+  q = '',
+  category = '',
+  sort = 'date-desc',
+}: { admin?: boolean; q?: string; category?: string; sort?: string } = {}) {
+  return db().project.findMany({
+    where: {
+      ...(!admin ? { status: { in: ['LISTED', 'PUBLISHED'] as const } } : {}),
+    },
+    include: { categories: true, cover: true },
+    orderBy: [{ date: 'desc' }, { id: 'asc' }],
+  });
+}
