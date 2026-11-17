@@ -34,3 +34,7 @@ export async function storeImage(file: File) {
     throw error;
   }
 }
+export const readImage = (key: string) => {
+  if (!/^[a-f0-9-]+\.webp$/.test(key)) throw new Error('Invalid storage key');
+  return readFile(/* turbopackIgnore: true */ join(/* turbopackIgnore: true */ directory(), key));
+};
