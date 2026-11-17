@@ -43,3 +43,43 @@
   margin-top: 4em;
   padding-bottom: 1em;
 }
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+  margin: 8px 0 16px;
+  align-items: baseline;
+}
+.toolbar h1 {
+  font-weight: normal;
+}
+.filters {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5em;
+  position: relative;
+  height: 1.5em;
+  margin: -2.8em 0 1.3em;
+}
+.archive {
+  columns: 16em;
+  column-gap: 2em;
+}
+.row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+  break-inside: avoid;
+}
+.row a {
+  text-decoration: none;
+}
+.row a:hover {
+  text-decoration: underline;
+}
+.row time {
+  white-space: nowrap;
+}
+.listed {
+  text-decoration: line-through;
+}
