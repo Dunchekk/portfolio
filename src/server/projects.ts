@@ -28,6 +28,15 @@ export async function listProjects({
   return db().project.findMany({
     where: {
       ...(!admin ? { status: { in: ['LISTED', 'PUBLISHED'] as const } } : {}),
+      ...(category ? { categories: { some: { id: category } } } : {}),
+      ...(q
+        ? {
+            OR: [
+              { title: { contains: q, mode: 'insensitive' as const } },
+              { summary: { contains: q, mode: 'insensitive' as const } },
+            ],
+          }
+        : {}),
     },
     include: { categories: true, cover: true },
     orderBy,
