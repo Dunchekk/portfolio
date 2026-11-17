@@ -42,3 +42,53 @@ export async function listProjects({
     orderBy,
   });
 }
+export async function saveProject(raw: unknown) {
+  const input = projectSchema.parse(raw);
+  return db().$transaction(async (tx) => {
+    const data = {
+      title: input.title,
+      slug: input.slug,
+      summary: input.summary,
+      date: new Date(`${input.date}T00:00:00Z`),
+      status: input.status,
+      coverId: input.coverId,
+      categories: { set: input.categoryIds.map((id) => ({ id })) },
+    };
+    let id = input.id;
+    if (id) {
+      const result = await tx.project.updateMany({
+        where: { id, version: input.version },
+        data: {
+          title: data.title,
+          slug: data.slug,
+          summary: data.summary,
+          date: data.date,
+          status: data.status,
+          coverId: data.coverId,
+          version: { increment: 1 },
+        },
+      });
+      if (result.count !== 1) throw new ConflictError();
+      await tx.project.update({ where: { id }, data: { categories: data.categories } });
+      await tx.projectBlock.deleteMany({ where: { projectId: id } });
+    } else {
+      const { categories: _categories, ...fields } = data;
+      const project = await tx.project.create({
+        data: { ...fields, categories: { connect: input.categoryIds.map((id) => ({ id })) } },
+      });
+      id = project.id;
+    }
+    await tx.projectBlock.createMany({
+      data: orderedBlocks(input.blocks).map((block) => ({
+        projectId: id!,
+        column: block.column,
+        position: block.position,
+        kind: block.kind,
+        ...(block.kind === 'TEXT'
+          ? { text: block.text }
+          : { mediaId: block.mediaId, alt: block.alt, caption: block.caption }),
+      })),
+    });
+    return id;
+  });
+}
