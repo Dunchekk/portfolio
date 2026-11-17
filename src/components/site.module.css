@@ -118,3 +118,7 @@
   margin: 0 0 1.4em 1em;
   font-style: italic;
 }
+.about {
+  max-width: 700px;
+  margin-top: 2em;
+}
