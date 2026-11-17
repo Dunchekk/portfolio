@@ -8,3 +8,13 @@ export async function hashPassword(password: string) {
   const salt = randomBytes(16).toString('hex');
   return `scrypt:${salt}:${(await derive(password, salt)).toString('hex')}`;
 }
+export async function verifyPassword(password: string, hash: string) {
+  const [algorithm, salt, expected] = hash.split(':');
+  if (
+    algorithm !== 'scrypt' ||
+    !/^[a-f0-9]{32}$/.test(salt ?? '') ||
+    !/^[a-f0-9]{128}$/.test(expected ?? '')
+  )
+    return false;
+  return timingSafeEqual(await derive(password, salt), Buffer.from(expected, 'hex'));
+}
