@@ -30,6 +30,15 @@ export async function Archive({
         preview={preview}
         categories={categories}
       />
+      <div className={s.toolbar}>
+        <Link href={url(sort === 'title-asc' ? 'title-desc' : 'title-asc')}>
+          alphabetical {sort.startsWith('title') ? (sort.endsWith('asc') ? '↑' : '↓') : ''}
+        </Link>
+        <h1>Archive: {preview ? 'Preview' : 'directory listing'}</h1>
+        <Link href={url(sort === 'date-desc' ? 'date-asc' : 'date-desc')}>
+          chronological {sort.startsWith('date') ? (sort.endsWith('asc') ? '↑' : '↓') : ''}
+        </Link>
+      </div>
       {visibleProjects.length === 0 ? (
         <p>No projects found.</p>
       ) : (
