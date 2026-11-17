@@ -83,3 +83,19 @@
 .listed {
   text-decoration: line-through;
 }
+.preview {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 2em;
+  align-items: end;
+}
+.preview img {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: contain;
+  object-position: bottom left;
+}
+.preview a {
+  text-decoration: none;
+}
