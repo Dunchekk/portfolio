@@ -38,3 +38,15 @@ export const readImage = (key: string) => {
   if (!/^[a-f0-9-]+\.webp$/.test(key)) throw new Error('Invalid storage key');
   return readFile(/* turbopackIgnore: true */ join(/* turbopackIgnore: true */ directory(), key));
 };
+export async function publicMedia(id: string) {
+  return db().media.findFirst({
+    where: {
+      id,
+      OR: [
+        { blocks: { some: { project: { status: 'PUBLISHED' } } } },
+        { covers: { some: { status: 'PUBLISHED' } } },
+        { news: { some: { published: true } } },
+      ],
+    },
+  });
+}
