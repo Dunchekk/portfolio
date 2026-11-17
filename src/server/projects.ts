@@ -19,11 +19,17 @@ export async function listProjects({
   category = '',
   sort = 'date-desc',
 }: { admin?: boolean; q?: string; category?: string; sort?: string } = {}) {
+  const orderBy: Prisma.ProjectOrderByWithRelationInput[] =
+    sort === 'title-asc'
+      ? [{ title: 'asc' }, { id: 'asc' }]
+      : sort === 'title-desc'
+        ? [{ title: 'desc' }, { id: 'asc' }]
+        : [{ date: sort === 'date-asc' ? 'asc' : 'desc' }, { id: 'asc' }];
   return db().project.findMany({
     where: {
       ...(!admin ? { status: { in: ['LISTED', 'PUBLISHED'] as const } } : {}),
     },
     include: { categories: true, cover: true },
-    orderBy: [{ date: 'desc' }, { id: 'asc' }],
+    orderBy,
   });
 }
