@@ -64,3 +64,16 @@ export function orderedBlocks(blocks: BlockInput[]) {
     ...(block.kind === 'TEXT' ? { text: normalizeText(block.text) } : {}),
   }));
 }
+export function monthYear(date: Date | string) {
+  return new Intl.DateTimeFormat('en', { month: 'short', year: 'numeric', timeZone: 'UTC' }).format(
+    new Date(date),
+  );
+}
+export function safeHref(href: string) {
+  return /^(https?:\/\/|mailto:)/i.test(href) ? href : '';
+}
+export class ConflictError extends Error {
+  constructor() {
+    super('Материал изменён в другой вкладке. Обновите страницу перед сохранением.');
+  }
+}
