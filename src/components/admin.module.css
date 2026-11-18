@@ -39,3 +39,38 @@
   grid-template-columns: 1fr 1fr;
   gap: 1em;
 }
+.tools {
+  display: flex;
+  gap: 0.5em;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0.5em 0;
+}
+.block {
+  border: 1px solid #bbb;
+  padding: 1em;
+  margin-top: 1em;
+}
+.block img {
+  width: auto;
+  max-width: 100%;
+  max-height: 150px;
+}
+.error {
+  color: #a00000;
+  white-space: pre-line;
+}
+.notice {
+  padding: 1em 0;
+}
+.list {
+  padding: 0;
+  list-style: none;
+}
+.list li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  padding: 0.6em 0;
+  border-bottom: 1px solid #ddd;
+}
