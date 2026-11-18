@@ -52,3 +52,17 @@ export async function categoryAction(name: string): Promise<Result> {
     return { error: errorMessage(e) };
   }
 }
+export async function uploadAction(form: FormData): Promise<Result> {
+  await requireAdmin();
+  const file = form.get('file');
+  if (!(file instanceof File)) return { error: 'Выберите изображение.' };
+  try {
+    const media = await storeImage(file);
+    return { id: media.id, ok: true };
+  } catch (e) {
+    console.error('Image upload failed', e);
+    return {
+      error: 'Не удалось загрузить фото. Допустимы JPEG, PNG, WebP до 10 МБ и 40 мегапикселей.',
+    };
+  }
+}
