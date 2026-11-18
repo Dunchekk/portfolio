@@ -66,6 +66,10 @@ export function Gallery({ blocks }: { blocks: Block[] }) {
       <dialog
         ref={dialog}
         className={s.dialog}
+        onKeyDown={(e) => {
+          if (e.key === 'ArrowLeft') move(-1);
+          if (e.key === 'ArrowRight') move(1);
+        }}
         aria-label="Image viewer"
       >
         <nav>
