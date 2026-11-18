@@ -151,3 +151,26 @@
   max-width: 700px;
   margin-top: 2em;
 }
+.dialog {
+  border: 0;
+  padding: 1em;
+  max-width: 95vw;
+  max-height: 95vh;
+}
+.dialog::backdrop {
+  background: rgb(255 255 255 / 95%);
+}
+.dialog img {
+  max-width: 90vw;
+  max-height: 80vh;
+  width: auto;
+  height: auto;
+  display: block;
+  margin: auto;
+}
+.dialog nav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1em;
+  gap: 2em;
+}
