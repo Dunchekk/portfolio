@@ -41,3 +41,14 @@ export async function projectAction(raw: unknown): Promise<Result> {
   revalidatePath('/', 'layout');
   return { id, ok: true };
 }
+export async function categoryAction(name: string): Promise<Result> {
+  await requireAdmin();
+  try {
+    const valid = z.string().trim().min(1).max(80).parse(name);
+    const category = await db().category.create({ data: { name: valid } });
+    revalidatePath('/', 'layout');
+    return { id: category.id, ok: true };
+  } catch (e) {
+    return { error: errorMessage(e) };
+  }
+}
