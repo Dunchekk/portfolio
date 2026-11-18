@@ -99,6 +99,35 @@
 .preview a {
   text-decoration: none;
 }
+.columns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2em;
+  margin-top: 2em;
+}
+.column {
+  min-width: 0;
+}
+.block {
+  margin-bottom: 1.4em;
+  break-inside: avoid;
+}
+.block img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.block button {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+.block figcaption {
+  margin-top: 0.5em;
+}
 .prose {
   overflow-wrap: anywhere;
 }
