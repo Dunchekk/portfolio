@@ -1,0 +1,41 @@
+.admin {
+  max-width: 1088px;
+  margin: 2em auto;
+}
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5em;
+  border-bottom: 1px solid;
+  padding-bottom: 1em;
+  margin-bottom: 2em;
+  align-items: center;
+}
+.form {
+  display: grid;
+  gap: 1.25em;
+  max-width: 760px;
+}
+.form label {
+  display: grid;
+  gap: 0.4em;
+}
+.form input,
+.form textarea,
+.form select {
+  padding: 0.5em;
+  border: 1px solid #aaa;
+  border-radius: 0;
+  background: white;
+  max-width: 100%;
+}
+.form textarea {
+  width: 100%;
+  min-height: 10em;
+  resize: vertical;
+}
+.fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+}
