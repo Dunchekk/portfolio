@@ -13,11 +13,23 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const project = await find((await params).slug);
   if (!project) notFound();
+  const projects = (await listProjects()).filter((p) => p.status === 'PUBLISHED');
+  const index = projects.findIndex((p) => p.id === project.id);
+  const prev = projects[index - 1],
+    next = projects[index + 1];
+  const nav = (
+    <nav className={s.toolbar} aria-label="Project navigation">
+      <span>{prev && <Link href={`/archive/${prev.slug}`}>← {prev.title}</Link>}</span>
+      <span>{next && <Link href={`/archive/${next.slug}`}>{next.title} →</Link>}</span>
+    </nav>
+  );
   return (
     <>
+      {nav}
       <h1>{project.title}</h1>
       <time dateTime={project.date.toISOString().slice(0, 10)}>{monthYear(project.date)}</time>
       <Gallery blocks={project.blocks} />
+      {nav}
     </>
   );
 }
