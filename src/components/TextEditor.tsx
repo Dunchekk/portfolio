@@ -27,6 +27,14 @@ export function TextEditor({
   }
   return (
     <div>
+      <div className={s.tools} role="toolbar" aria-label={`Форматирование: ${label}`}>
+        <button type="button" aria-label="Жирный" onClick={() => wrap('**')}>
+          <b>B</b>
+        </button>
+        <button type="button" aria-label="Курсив" onClick={() => wrap('*')}>
+          <i>I</i>
+        </button>
+      </div>
       <label>
         {label}
         <textarea
