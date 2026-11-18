@@ -30,3 +30,14 @@ export async function logoutAction() {
   await signOut();
   redirect('/admin/login');
 }
+export async function projectAction(raw: unknown): Promise<Result> {
+  await requireAdmin();
+  let id: string;
+  try {
+    id = await saveProject(raw);
+  } catch (error) {
+    return { error: errorMessage(error) };
+  }
+  revalidatePath('/', 'layout');
+  return { id, ok: true };
+}
