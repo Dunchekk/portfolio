@@ -203,6 +203,14 @@ export function ProjectEditor({
                           onChange={(e) => update(index, { ...block, alt: e.target.value })}
                         />
                       </label>
+                      <label>
+                        Подпись
+                        <input
+                          value={block.caption}
+                          maxLength={1000}
+                          onChange={(e) => update(index, { ...block, caption: e.target.value })}
+                        />
+                      </label>
                     </>
                   )}
                 </div>
