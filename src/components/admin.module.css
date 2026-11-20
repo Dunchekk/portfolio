@@ -74,3 +74,8 @@
   padding: 0.6em 0;
   border-bottom: 1px solid #ddd;
 }
+.preview {
+  padding: 1em;
+  border: 1px dashed #aaa;
+  margin-top: 0.5em;
+}

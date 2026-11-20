@@ -43,6 +43,9 @@ export function TextEditor({
         <button type="button" onClick={() => wrap('\n> ', '\n')}>
           Цитата
         </button>
+        <button type="button" aria-pressed={preview} onClick={() => setPreview(!preview)}>
+          Предпросмотр
+        </button>
       </div>
       <label>
         {label}
@@ -57,7 +60,11 @@ export function TextEditor({
         Пустая строка — новый абзац. **Жирный**, *курсив*, [ссылка](https://…). HTML не
         поддерживается.
       </small>
-
+      {preview && (
+        <div className={s.preview}>
+          <RichText text={value} />
+        </div>
+      )}
     </div>
   );
 }
