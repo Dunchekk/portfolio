@@ -150,6 +150,12 @@ export function ProjectEditor({
                 <div className={s.block} key={block.id ?? `${block.kind}-${index}`}>
                   <div className={s.tools}>
                     <span>{block.kind === 'TEXT' ? 'Текст' : 'Фото'}</span>
+                    <button type="button" aria-label="Блок вверх" onClick={() => move(index, -1)}>
+                      ↑
+                    </button>
+                    <button type="button" aria-label="Блок вниз" onClick={() => move(index, 1)}>
+                      ↓
+                    </button>
                   </div>
                   {block.kind === 'TEXT' ? (
                     <TextEditor
