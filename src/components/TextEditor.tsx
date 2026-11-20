@@ -34,6 +34,9 @@ export function TextEditor({
         <button type="button" aria-label="Курсив" onClick={() => wrap('*')}>
           <i>I</i>
         </button>
+        <button type="button" onClick={() => wrap('[', '](https://example.com)')}>
+          Ссылка
+        </button>
       </div>
       <label>
         {label}
