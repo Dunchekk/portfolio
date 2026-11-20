@@ -162,6 +162,34 @@ export function ProjectEditor({
             </label>
           ))}
         </div>
+        <div className={s.tools}>
+          <input
+            aria-label="Новая категория"
+            value={categoryName}
+            onChange={(e) => setCategoryName(e.target.value)}
+            maxLength={80}
+          />
+          <button
+            type="button"
+            onClick={async () => {
+              setBusy(true);
+              try {
+                const r = await categoryAction(categoryName);
+                if (r.error) setError(r.error);
+                else {
+                  setCategoryName('');
+                  router.refresh();
+                }
+              } catch {
+                setError('Не удалось создать категорию.');
+              } finally {
+                setBusy(false);
+              }
+            }}
+          >
+            Добавить категорию
+          </button>
+        </div>
         <label>
           Обложка
           <select
