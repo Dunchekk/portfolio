@@ -217,6 +217,18 @@ export function ProjectEditor({
               >
                 + Текст в колонку {column + 1}
               </button>
+              <label>
+                + Фото в колонку {column + 1}
+                <input
+                  type="file"
+                  accept="image/jpeg,image/png,image/webp"
+                  multiple
+                  onChange={(e) => {
+                    void upload(e.target.files, column);
+                    e.target.value = '';
+                  }}
+                />
+              </label>
             </div>
           </section>
         ))}
