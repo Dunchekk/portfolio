@@ -142,6 +142,50 @@ export function ProjectEditor({
             onChange={(e) => field('summary', e.target.value)}
           />
         </label>
+        {[0, 1, 2].map((column) => (
+          <section key={column}>
+            <h2 className={s.notice}>Колонка {column + 1}</h2>
+            {data.blocks.map((block, index) =>
+              block.column === column ? (
+                <div className={s.block} key={block.id ?? `${block.kind}-${index}`}>
+                  <div className={s.tools}>
+                    <span>{block.kind === 'TEXT' ? 'Текст' : 'Фото'}</span>
+                  </div>
+                  {block.kind === 'TEXT' ? (
+                    <TextEditor
+                      label={`Текст блока ${index + 1}`}
+                      value={block.text}
+                      onChange={(text) => update(index, { ...block, text })}
+                    />
+                  ) : (
+                    <>
+                      <img src={`/media/${block.mediaId}`} alt={block.alt} />
+                      <label>
+                        Описание фото (alt)
+                        <input
+                          required
+                          value={block.alt}
+                          maxLength={500}
+                          onChange={(e) => update(index, { ...block, alt: e.target.value })}
+                        />
+                      </label>
+                    </>
+                  )}
+                </div>
+              ) : null,
+            )}
+            <div className={s.tools}>
+              <button
+                type="button"
+                onClick={() =>
+                  field('blocks', [...data.blocks, { kind: 'TEXT', column, text: '' }])
+                }
+              >
+                + Текст в колонку {column + 1}
+              </button>
+            </div>
+          </section>
+        ))}
       </fieldset>
       {error && (
         <p className={s.error} role="alert">
