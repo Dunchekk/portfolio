@@ -142,6 +142,26 @@ export function ProjectEditor({
             onChange={(e) => field('summary', e.target.value)}
           />
         </label>
+        <p>Категории</p>
+        <div className={s.checks}>
+          {categories.map((c) => (
+            <label key={c.id}>
+              <input
+                type="checkbox"
+                checked={data.categoryIds.includes(c.id)}
+                onChange={(e) =>
+                  field(
+                    'categoryIds',
+                    e.target.checked
+                      ? [...data.categoryIds, c.id]
+                      : data.categoryIds.filter((id) => id !== c.id),
+                  )
+                }
+              />
+              {c.name}
+            </label>
+          ))}
+        </div>
         <label>
           Обложка
           <select
