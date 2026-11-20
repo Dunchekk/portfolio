@@ -171,6 +171,19 @@ export function ProjectEditor({
                     <button type="button" aria-label="Блок вниз" onClick={() => move(index, 1)}>
                       ↓
                     </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (window.confirm('Убрать блок? Изменение применится после сохранения.')) {
+                          field(
+                            'blocks',
+                            data.blocks.filter((_, i) => i !== index),
+                          );
+                        }
+                      }}
+                    >
+                      Убрать
+                    </button>
                   </div>
                   {block.kind === 'TEXT' ? (
                     <TextEditor
