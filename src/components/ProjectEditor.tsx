@@ -113,7 +113,35 @@ export function ProjectEditor({
               maxLength={120}
             />
           </label>
+          <label>
+            Дата
+            <input
+              type="date"
+              required
+              value={data.date}
+              onChange={(e) => field('date', e.target.value)}
+            />
+          </label>
+          <label>
+            Публикация
+            <select
+              value={data.status}
+              onChange={(e) => field('status', e.target.value as ProjectInput['status'])}
+            >
+              <option value="DRAFT">Черновик — виден только вам</option>
+              <option value="LISTED">Только запись в архиве</option>
+              <option value="PUBLISHED">Опубликованная страница</option>
+            </select>
+          </label>
         </div>
+        <label>
+          Краткое описание
+          <input
+            maxLength={500}
+            value={data.summary}
+            onChange={(e) => field('summary', e.target.value)}
+          />
+        </label>
       </fieldset>
       {error && (
         <p className={s.error} role="alert">
