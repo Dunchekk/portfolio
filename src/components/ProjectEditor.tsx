@@ -142,6 +142,24 @@ export function ProjectEditor({
             onChange={(e) => field('summary', e.target.value)}
           />
         </label>
+        <label>
+          Обложка
+          <select
+            value={data.coverId ?? ''}
+            onChange={(e) => field('coverId', e.target.value || null)}
+          >
+            <option value="">Без обложки</option>
+            {data.blocks.flatMap((b, i) =>
+              b.kind === 'IMAGE'
+                ? [
+                    <option key={i} value={b.mediaId}>
+                      {b.alt || `Фото ${i + 1}`}
+                    </option>,
+                  ]
+                : [],
+            )}
+          </select>
+        </label>
         {[0, 1, 2].map((column) => (
           <section key={column}>
             <h2 className={s.notice}>Колонка {column + 1}</h2>
