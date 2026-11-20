@@ -37,6 +37,12 @@ export function TextEditor({
         <button type="button" onClick={() => wrap('[', '](https://example.com)')}>
           Ссылка
         </button>
+        <button type="button" onClick={() => wrap('\n- ', '\n')}>
+          Список
+        </button>
+        <button type="button" onClick={() => wrap('\n> ', '\n')}>
+          Цитата
+        </button>
       </div>
       <label>
         {label}
