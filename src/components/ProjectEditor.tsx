@@ -150,6 +150,21 @@ export function ProjectEditor({
                 <div className={s.block} key={block.id ?? `${block.kind}-${index}`}>
                   <div className={s.tools}>
                     <span>{block.kind === 'TEXT' ? 'Текст' : 'Фото'}</span>
+                    <label>
+                      Колонка
+                      <select
+                        value={block.column}
+                        onChange={(e) =>
+                          update(index, { ...block, column: Number(e.target.value) })
+                        }
+                      >
+                        {[0, 1, 2].map((c) => (
+                          <option key={c} value={c}>
+                            {c + 1}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
                     <button type="button" aria-label="Блок вверх" onClick={() => move(index, -1)}>
                       ↑
                     </button>
