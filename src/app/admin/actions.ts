@@ -76,3 +76,14 @@ export async function uploadAction(form: FormData): Promise<Result> {
     };
   }
 }
+export async function newsAction(raw: unknown): Promise<Result> {
+  await requireAdmin();
+  try {
+    const { saveNews } = await import('@/server/news');
+    await saveNews(raw);
+  } catch (e) {
+    return { error: errorMessage(e) };
+  }
+  revalidatePath('/', 'layout');
+  return { ok: true };
+}
