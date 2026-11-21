@@ -97,6 +97,38 @@ export function NewsEditor({ items }: { items: Item[] }) {
             onChange={(text) => setData({ ...data, text })}
           />
           <label>
+            Фото
+            <input
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+              onChange={async (e) => {
+                const file = e.target.files?.[0];
+                e.target.value = '';
+                if (!file) return;
+                setBusy(true);
+                try {
+                  const form = new FormData();
+                  form.set('file', file);
+                  const result = await uploadAction(form);
+                  if (result.error) setMessage(result.error);
+                  else setData((p) => ({ ...p, mediaId: result.id! }));
+                } catch {
+                  setMessage('Не удалось загрузить фото.');
+                } finally {
+                  setBusy(false);
+                }
+              }}
+            />
+          </label>
+          {data.mediaId && (
+            <div className={s.block}>
+              <img src={`/media/${data.mediaId}`} alt="Фото новости" />
+              <button type="button" onClick={() => setData({ ...data, mediaId: null })}>
+                Убрать фото
+              </button>
+            </div>
+          )}
+          <label>
             <input
               type="checkbox"
               checked={data.published}
