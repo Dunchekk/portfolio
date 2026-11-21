@@ -41,6 +41,16 @@ export async function projectAction(raw: unknown): Promise<Result> {
   revalidatePath('/', 'layout');
   return { id, ok: true };
 }
+export async function profileAction(raw: unknown): Promise<Result> {
+  await requireAdmin();
+  try {
+    await saveProfile(raw);
+  } catch (e) {
+    return { error: errorMessage(e) };
+  }
+  revalidatePath('/', 'layout');
+  return { ok: true };
+}
 export async function categoryAction(name: string): Promise<Result> {
   await requireAdmin();
   try {
