@@ -17,3 +17,19 @@ export const listNews = (admin = false) =>
     orderBy: [{ date: 'desc' }, { id: 'asc' }],
     include: { media: true },
   });
+export async function saveNews(raw: unknown) {
+  const input = newsSchema.parse(raw);
+  const data = {
+    title: input.title,
+    text: normalizeText(input.text),
+    date: new Date(`${input.date}T00:00:00Z`),
+    published: input.published,
+    mediaId: input.mediaId,
+  };
+  if (!input.id) return db().news.create({ data });
+  const result = await db().news.updateMany({
+    where: { id: input.id, version: input.version },
+    data: { ...data, version: { increment: 1 } },
+  });
+  if (result.count !== 1) throw new ConflictError();
+}
