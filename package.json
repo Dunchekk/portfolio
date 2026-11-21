@@ -15,6 +15,7 @@
     "db:dev": "prisma migrate dev",
     "postinstall": "prisma generate",
     "admin:setup": "tsx scripts/admin-setup.ts",
+    "db:local": "tsx scripts/local-db.ts",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
